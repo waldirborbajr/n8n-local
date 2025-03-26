@@ -104,7 +104,17 @@ Isso iniciará os seguintes serviços:
 - Acesse o **Adminer** em `http://localhost:8081` para gerenciar o banco de dados (use `postgres` como servidor, usuário e senha conforme o `.env`).
 - Verifique o túnel do **Ngrok** em `http://localhost:4040` para obter a URL pública do n8n.
 
-### 6. Pare os Serviços (Opcional)
+### 6. Configure os Webhooks
+
+Como este projeto utiliza o Ngrok, a URL pública gerada para o n8n muda a cada vez que os serviços são reiniciados. Você precisará:
+
+- Acessar `http://localhost:4040` para obter a nova URL do Ngrok (exemplo: `https://abcd-1234.ngrok.io`).
+- Atualizar a URL do webhook no **Evolution API** (geralmente em suas configurações ou endpoints de integração).
+- Se você configurou webhooks em outros serviços ou fluxos do n8n que dependem dessa URL, atualize-os também.
+
+**Lembrete**: Sempre redefina as URLs dos webhooks após reiniciar os serviços para garantir que tudo funcione corretamente.
+
+### 7. Pare os Serviços (Opcional)
 
 Para parar os serviços, use:
 
@@ -131,7 +141,6 @@ docker-compose down -v
 
 - Certifique-se de que as portas (5678, 5432, 8080, 4040, 6380, 8081) estejam livres em sua máquina.
 - O Ngrok fornece uma URL temporária. Para uma URL fixa, considere um plano pago ou outra solução de túnel.
-- Serpre que iniciar o projeto o link do Ngrok será alterado. Sendo assim, vc precisa atualizar o link que usará no evolution para o webhook.
 - Mantenha o arquivo `.env` seguro e não o compartilhe publicamente.
 
 ## Contribuições
@@ -141,4 +150,3 @@ Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias!
 ## Licença
 
 Este projeto está sob a licença [MIT](LICENSE).
-git add .
