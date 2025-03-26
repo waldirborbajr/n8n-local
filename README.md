@@ -141,7 +141,4 @@ Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias!
 ## Licença
 
 Este projeto está sob a licença [MIT](LICENSE).
-
----
-
-Esse README é claro, conciso e segue as melhores práticas para documentação no GitHub. Ele guia o usuário desde a configuração inicial até o uso dos serviços, incluindo a integração com o Ngrok.
+git add .
