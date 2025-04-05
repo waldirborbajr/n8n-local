@@ -41,15 +41,19 @@ services:
       - minha_rede
 
   ngrok:
-    image: wernight/ngrok
+    image: ngrok/ngrok:alpine
     container_name: ngrok
     restart: unless-stopped
     ports:
-      - "4040:4040"
+      - "4040:4040"  # interface web do ngrok
     env_file:
       - .env
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    command: start --all --config /etc/ngrok.yml
     depends_on:
       - n8n
+      - evolution-api
     networks:
       - minha_rede
 
