@@ -1,2 +1,4 @@
 .env
 docker-compose copy.yml
+.continuerules
+ngrok.yml
