@@ -1,8 +1,6 @@
-version: "3"
-
 services:
   n8n:
-    image: n8nio/n8n
+    image: n8nio/n8n:1.85.4
     container_name: n8n
     restart: unless-stopped
     ports:
@@ -27,6 +25,21 @@ services:
     networks:
       - minha_rede
 
+  # PGADMIN CONSOME MAIS RECURSOS PORÉM COMPLETO
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8081:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: seuemail@exemplo.com
+  #     PGADMIN_DEFAULT_PASSWORD: suasenha
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - minha_rede
+
   evolution-api:
     container_name: lab_evolution_api
     image: atendai/evolution-api:v2.2.3
@@ -41,17 +54,21 @@ services:
       - minha_rede
 
   ngrok:
-    image: wernight/ngrok
+    image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
     container_name: ngrok
     restart: unless-stopped
     ports:
-      - "4040:4040"
+      - "4040:4040" # Porta para acessar a interface web do ngrok
     env_file:
-      - .env
+      - .env # Arquivo de variáveis de ambiente (certifique-se de incluir NGROK_AUTH_TOKEN se necessário)
     depends_on:
-      - n8n
+      - n8n # Mantém a dependência do serviço n8n
     networks:
       - minha_rede
+    command:
+      - http
+      - --domain=viable-proud-tomcat.ngrok-free.app # Domínio personalizado do ngrok
+      - n8n:5678 # Aponta para o serviço n8n na porta 5678
 
   redis:
     image: redis:alpine
@@ -72,10 +89,22 @@ services:
     networks:
       - minha_rede
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - minha_rede
+
 volumes:
   n8n_data:
   postgres_data:
   lab_evolution_instances:
+  ollama_data:
 
 networks:
   minha_rede:

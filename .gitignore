@@ -1,2 +1,2 @@
-.env copy
+.env
 docker-compose copy.yml
