@@ -54,7 +54,6 @@ services:
       - minha_rede
 
   ngrok:
-<<<<<<< HEAD
     image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
     container_name: ngrok
     restart: unless-stopped
@@ -64,21 +63,6 @@ services:
       - .env # Arquivo de variáveis de ambiente (certifique-se de incluir NGROK_AUTH_TOKEN se necessário)
     depends_on:
       - n8n # Mantém a dependência do serviço n8n
-=======
-    image: ngrok/ngrok:alpine
-    container_name: ngrok
-    restart: unless-stopped
-    ports:
-      - "4040:4040"  # interface web do ngrok
-    env_file:
-      - .env
-    volumes:
-      - ./ngrok.yml:/etc/ngrok.yml
-    command: start --all --config /etc/ngrok.yml
-    depends_on:
-      - n8n
-      - evolution-api
->>>>>>> 6501eb78d907e629f06bf1c2282fd731ec824ab7
     networks:
       - minha_rede
     command:
