@@ -69,16 +69,12 @@ CACHE_REDIS_SAVE_INSTANCES=false
 
 # Variáveis do cache local (evolution-api)
 CACHE_LOCAL_ENABLED=false
-
-# Variáveis do ngrok
-NGROK_PROTOCOL=http
-NGROK_PORT=n8n:5678
-NGROK_AUTHTOKEN=SUA_KEY
 ```
 
 - Substitua `SUA_KEY` em `AUTHENTICATION_API_KEY` por uma chave de API segura para o Evolution API.
 - Substitua `SUA_KEY` em `NGROK_AUTHTOKEN` pelo token obtido no passo 2.
 - Ajuste `POSTGRES_PASSWORD`, `N8N_BASIC_AUTH_USER` e `N8N_BASIC_AUTH_PASSWORD` para valores seguros de sua escolha.
+- Substitua sua SUA_KEY do ngrok no arquivo ngrok.yml
 
 ### 4. Inicie os Serviços
 
