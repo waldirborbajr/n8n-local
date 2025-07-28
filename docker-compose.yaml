@@ -1,6 +1,6 @@
 services:
   n8n:
-    image: n8nio/n8n:1.85.4
+    image: n8nio/n8n:1.103.2
     container_name: n8n
     restart: unless-stopped
     ports:
@@ -42,7 +42,7 @@ services:
 
   evolution-api:
     container_name: lab_evolution_api
-    image: atendai/evolution-api:v2.2.3
+    image: evoapicloud/evolution-api:latest
     restart: always
     ports:
       - 8080:8080
@@ -67,7 +67,7 @@ services:
       - minha_rede
     command:
       - http
-      - SEU_DOMINIO_FIXO_GRATUITO_DO_DOCKER # Domínio personalizado do ngrok
+      - --domain=precious-toucan-actual.ngrok-free.app # Domínio personalizado do ngrok
       - n8n:5678 # Aponta para o serviço n8n na porta 5678
 
   redis:
@@ -78,33 +78,33 @@ services:
     networks:
       - minha_rede
 
-  adminer:
-    image: adminer
-    container_name: adminer
-    restart: unless-stopped
-    ports:
-      - "8081:8080"
-    depends_on:
-      - postgres
-    networks:
-      - minha_rede
+#  adminer:
+#    image: adminer
+#    container_name: adminer
+#    restart: unless-stopped
+#    ports:
+#      - "8081:8080"
+#    depends_on:
+#      - postgres
+#    networks:
+#      - minha_rede
 
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    restart: unless-stopped
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-    networks:
-      - minha_rede
+#  ollama:
+#    image: ollama/ollama:latest
+#    container_name: ollama
+#    restart: unless-stopped
+#    ports:
+#      - "11434:11434"
+#    volumes:
+#      - ollama_data:/root/.ollama
+#    networks:
+#      - minha_rede
 
 volumes:
   n8n_data:
   postgres_data:
   lab_evolution_instances:
-  ollama_data:
+#  ollama_data:
 
 networks:
   minha_rede:
