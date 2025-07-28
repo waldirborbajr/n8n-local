@@ -2,6 +2,7 @@ services:
   n8n:
     image: n8nio/n8n:1.103.2
     container_name: n8n
+    hostname: n8n
     restart: unless-stopped
     ports:
       - "5678:5678"
@@ -15,6 +16,7 @@ services:
   postgres:
     image: ankane/pgvector
     container_name: postgres
+    hostname: postgres
     restart: unless-stopped
     ports:
       - "5432:5432"
@@ -41,8 +43,9 @@ services:
   #     - minha_rede
 
   evolution-api:
-    container_name: lab_evolution_api
     image: evoapicloud/evolution-api:latest
+    container_name: evolution-api
+    hostname: evolution-api
     restart: always
     ports:
       - 8080:8080
