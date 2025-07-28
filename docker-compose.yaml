@@ -59,6 +59,7 @@ services:
   ngrok:
     image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
     container_name: ngrok
+    hostname: ngrok    
     restart: unless-stopped
     ports:
       - "4040:4040" # Porta para acessar a interface web do ngrok
@@ -75,6 +76,8 @@ services:
 
   redis:
     image: redis:alpine
+    container_name: redis
+    hostname: redis
     restart: always
     ports:
       - "6380:6379"
