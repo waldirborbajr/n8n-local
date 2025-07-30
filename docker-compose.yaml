@@ -1,3 +1,13 @@
+volumes:
+  n8n_storage:
+  postgres_storage:
+  evolution_storage:
+#  ollama_data:
+
+networks:
+  cavelab_network:
+    driver: bridge
+
 services:
   n8n:
     image: n8nio/n8n:1.104.1
@@ -59,7 +69,7 @@ services:
   ngrok:
     image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
     container_name: ngrok
-    hostname: ngrok    
+    hostname: ngrok
     restart: unless-stopped
     ports:
       - "4040:4040" # Porta para acessar a interface web do ngrok
@@ -105,13 +115,3 @@ services:
 #      - ollama_data:/root/.ollama
 #    networks:
 #      - cavelab_network
-
-volumes:
-  n8n_storage:
-  postgres_storage:
-  evolution_storage:
-#  ollama_data:
-
-networks:
-  cavelab_network:
-    driver: bridge
