@@ -18,3 +18,11 @@ down:
 stop:
 	docker-compose stop
 	docker-compose rm -f
+
+.PHONY: dang
+dang:
+	docker rmi $$(docker images -q -f dangling=true)
+
+.PHONY: remove
+remove:
+	docker rm $$(docker ps -a -q) -f
