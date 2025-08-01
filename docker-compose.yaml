@@ -2,6 +2,8 @@ volumes:
   n8n_storage:
   postgres_storage:
   evolution_storage:
+  waha_sessions_storage:
+  waha_media_storage:
 #  ollama_data:
 
 networks:
@@ -52,10 +54,10 @@ services:
   #   networks:
   #     - cavelab_network
 
-  evolution-api:
+  evolution:
     image: evoapicloud/evolution-api:latest
-    container_name: evolution-api
-    hostname: evolution-api
+    container_name: evolution
+    hostname: evolution
     restart: always
     ports:
       - 8080:8080
@@ -66,6 +68,23 @@ services:
     networks:
       - cavelab_network
 
+  waha:
+    image: devlikeapro/waha:latest
+    container_name: waha
+    hostname: waha
+    restart: unless-stopped    
+    ports:
+      - "3000:3000"
+    environment:
+      WHATSAPP_HOOK_URL: http://host.docker.internal:5678/webhook/webhook
+      WHATSAPP_DEFAULT_ENGINE: GOWS
+      WHATSAPP_HOOK_EVENTS: message
+    volumes:
+      - waha_sessions_storage:/app/.sessions
+      - waha_media_storage:/app/.media
+    networks:
+      - cavelab_network
+      
   ngrok:
     image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
     container_name: ngrok
