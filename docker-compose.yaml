@@ -72,26 +72,24 @@ services:
     image: devlikeapro/waha:latest
     container_name: waha
     hostname: waha
-    restart: unless-stopped    
+    restart: unless-stopped
     ports:
-      - "3000:3000"
-    environment:
-      WHATSAPP_HOOK_URL: http://host.docker.internal:5678/webhook/webhook
-      WHATSAPP_DEFAULT_ENGINE: GOWS
-      WHATSAPP_HOOK_EVENTS: message
+      - 3000:3000
+    env_file:
+      - .env
     volumes:
       - waha_sessions_storage:/app/.sessions
       - waha_media_storage:/app/.media
     networks:
       - cavelab_network
-      
+
   ngrok:
     image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
     container_name: ngrok
     hostname: ngrok
     restart: unless-stopped
     ports:
-      - "4040:4040" # Porta para acessar a interface web do ngrok
+      - 4040:4040 # Porta para acessar a interface web do ngrok
     env_file:
       - .env # Arquivo de variáveis de ambiente (certifique-se de incluir NGROK_AUTH_TOKEN se necessário)
     depends_on:
@@ -109,7 +107,7 @@ services:
     hostname: redis
     restart: always
     ports:
-      - "6380:6379"
+      - 6380:6379
     networks:
       - cavelab_network
 
