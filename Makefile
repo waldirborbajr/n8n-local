@@ -16,8 +16,8 @@ down:
 
 .PHONY: stop
 stop:
-	docker-compose stop
-	docker-compose rm -f
+	docker compose stop
+	docker compose rm -f
 
 .PHONY: dang
 dang:
