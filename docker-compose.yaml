@@ -68,20 +68,20 @@ services:
     networks:
       - cavelab_network
 
-  waha:
-    image: devlikeapro/waha:latest
-    container_name: waha
-    hostname: waha
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    env_file:
-      - .env
-    volumes:
-      - waha_sessions_storage:/app/.sessions
-      - waha_media_storage:/app/.media
-    networks:
-      - cavelab_network
+#  waha:
+#    image: devlikeapro/waha:latest
+#    container_name: waha
+#    hostname: waha
+#    restart: unless-stopped
+#    ports:
+#      - 3000:3000
+#    env_file:
+#      - .env
+#    volumes:
+#      - waha_sessions_storage:/app/.sessions
+#      - waha_media_storage:/app/.media
+#    networks:
+#      - cavelab_network
 
   ngrok:
     image: ngrok/ngrok:latest # Usa a imagem oficial do ngrok com a tag "latest" para a versão mais recente
