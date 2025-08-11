@@ -1,6 +1,7 @@
 volumes:
   n8n_storage:
   postgres_storage:
+  pgvector_storage:
   evolution_storage:
   waha_sessions_storage:
   waha_media_storage:
@@ -25,13 +26,34 @@ services:
     networks:
       - cavelab_network
 
-  postgres:
-    image: ankane/pgvector
-    container_name: postgres
-    hostname: postgres
+  pgvector:
+    image: pgvector/pgvector:0.8.0-pg17-bookworm
+    container_name: pgvector
+    hostname: pgvector
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - 5432
+    env_file:
+      - .env
+    volumes:
+      - pgvector_storage:/var/lib/postgresql/data
+    networks:
+      - cavelab_network
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: unless-stopped
+    command: [
+      "postgres",
+      "-c", "max_connections=200",
+      "-c", "listen_addresses=*",
+      "-c", "shared_buffers=256MB",
+      "-c", "effective_cache_size=1GB",
+      "-c", "work_mem=4MB"
+    ]
+    ports:
+      - 5432
     env_file:
       - .env
     volumes:
@@ -55,7 +77,7 @@ services:
   #     - cavelab_network
 
   evolution:
-    image: evoapicloud/evolution-api:latest
+    image: evoapicloud/evolution-api:v2.3.1
     container_name: evolution
     hostname: evolution
     restart: always
@@ -102,7 +124,7 @@ services:
       - n8n:5678 # Aponta para o serviço n8n na porta 5678
 
   redis:
-    image: redis:alpine
+    image: redis:alpine3.22
     container_name: redis
     hostname: redis
     restart: always
