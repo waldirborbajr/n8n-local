@@ -9,6 +9,7 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
 - **n8n:** Plataforma de automação de workflows.
 - **Postgres:** Banco de dados PostgreSQL com extensão pgvector para funcionalidades vetoriais.
 - **Evolution API:** API para integração com plataformas de mensagens.
+- **WAHA API:** API para integração com plataformas de mensagens. (alternativa ao Evolution)
 - **Ngrok:** Cria túneis seguros para expor o n8n para a internet (útil para webhooks).
 - **Redis:** Banco de dados em memória para cache, utilizado pela Evolution API.
 - **Adminer:** Interface web para administração do banco de dados Postgres.
@@ -34,7 +35,7 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
     Preencha as variáveis de ambiente com os valores apropriados. **Importante:** Defina senhas seguras para o Postgres e o n8n.
 
     ```bash
-    cp .env_eexemplo .env
+    cp .env.example .env
     nano .env
     ```
 
@@ -42,6 +43,14 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
 
     As seguintes variáveis precisam ser configuradas no arquivo `.env`:
 
+    Para simplificar, procure dentro do arquivo `.env` pela palavra **MUDE_AQUI** e deixe as demais variaveis como estão, ou altere conforma abaixo.
+
+    Para gerar a chave de API, procure no Google por `api key generator` ou vá direto no site https://generate-random.org/api-key-generator e gere uma chave para ser utilizada quando solicitado.
+
+    Para gerar um domínio no NGRok, acesso o https://ngrok.com/ e entre com sua senha e vá no menu `Domains` e depois clique no botão `New Domain` siga os passos e crie o dominio para vincular nas váriaveis:
+    - `WEBHOOK_URL`
+    - `N8N_HOST=MUDE_AQUI`
+    
     - **Postgres:**
       - `POSTGRES_USER`: Nome de usuário do Postgres.
       - `POSTGRES_PASSWORD`: Senha do usuário Postgres.
@@ -78,7 +87,7 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
       - `NGROK_PORT`: Porta do serviço a ser exposto (deve ser `n8n:5678`).
       - `NGROK_AUTHTOKEN`: Seu token de autenticação do Ngrok (necessário para usar domínios personalizados).
 
-4.  **Inicialize os serviços:**
+5.  **Inicialize os serviços:**
 
     ```bash
     docker-compose up -d
