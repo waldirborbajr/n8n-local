@@ -41,16 +41,16 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
 
 3.  **Variáveis de Ambiente:**
 
-    As seguintes variáveis precisam ser configuradas no arquivo `.env`:
-
-    Para simplificar, procure dentro do arquivo `.env` pela palavra **MUDE_AQUI** e deixe as demais variaveis como estão, ou altere conforma abaixo.
+    Para simplificar, procure dentro do arquivo `.env` pela palavra **MUDE_AQUI** e deixe as demais variaveis como estão, ou altere conforme abaixo no item `4`.
 
     Para gerar a chave de API, procure no Google por `api key generator` ou vá direto no site https://generate-random.org/api-key-generator e gere uma chave para ser utilizada quando solicitado.
 
     Para gerar um domínio no NGRok, acesso o https://ngrok.com/ e entre com sua senha e vá no menu `Domains` e depois clique no botão `New Domain` siga os passos e crie o dominio para vincular nas váriaveis:
-    - `WEBHOOK_URL`
-    - `N8N_HOST=MUDE_AQUI`
-    
+        - `WEBHOOK_URL`
+        - `N8N_HOST=MUDE_AQUI`
+
+4. **Ajuste fino das variáveis**
+
     - **Postgres:**
       - `POSTGRES_USER`: Nome de usuário do Postgres.
       - `POSTGRES_PASSWORD`: Senha do usuário Postgres.
