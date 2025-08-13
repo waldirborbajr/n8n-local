@@ -6,4 +6,4 @@ tunnels:
     addr: n8n:5678
   evolution-api:
     proto: http
-    addr: evolution-api:8080
+    addr: evolution:8080
