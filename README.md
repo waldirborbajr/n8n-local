@@ -87,10 +87,18 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
       - `NGROK_PORT`: Porta do serviço a ser exposto (deve ser `n8n:5678`).
       - `NGROK_AUTHTOKEN`: Seu token de autenticação do Ngrok (necessário para usar domínios personalizados).
 
-5.  **Inicialize os serviços:**
+5.  **Inicialize ou Pare os serviços:**
+
+    - Para iniciar
 
     ```bash
-    docker-compose up -d
+    docker-compose up -d --remove-orphans
+    ```
+
+    - Para Parar
+
+    ```bash
+    docker-compose stop
     ```
 
     Isso irá baixar as imagens necessárias, criar os contêineres e iniciar todos os serviços em modo "detached" (em segundo plano).
