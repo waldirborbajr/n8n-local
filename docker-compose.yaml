@@ -5,6 +5,8 @@ volumes:
   evolution_storage:
   waha_sessions_storage:
   waha_media_storage:
+  tailscale_config_storage:
+  tailscale_data_storage:
 #  ollama_data:
 
 networks:
