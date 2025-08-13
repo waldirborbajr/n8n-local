@@ -31,7 +31,7 @@ Os seguintes serviços são definidos no `docker-compose.yml`:
 
 2.  **Crie um arquivo `.env`:**
 
-    Copie o conteúdo de `.env_eexemplo` para um novo arquivo chamado `.env`.
+    Copie o conteúdo de `.env.example` para um novo arquivo chamado `.env`.
     Preencha as variáveis de ambiente com os valores apropriados. **Importante:** Defina senhas seguras para o Postgres e o n8n.
 
     ```bash
