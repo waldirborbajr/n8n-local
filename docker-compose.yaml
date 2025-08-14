@@ -79,7 +79,7 @@ services:
   #     - cavelab_network
 
   evolution:
-    image: evoapicloud/evolution-api:v2.3.1
+    image: evoapicloud/evolution-api:v2.3.0
     container_name: evolution
     hostname: evolution
     restart: always
