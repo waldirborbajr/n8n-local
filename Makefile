@@ -6,9 +6,9 @@ up:
 restart:
 	docker compose restart
 
-.PHONY: logs
+.PHONY: log
 log:
-	docker logs -f service-core
+	docker logs -f evolution
 
 .PHONY: down
 down:
@@ -21,8 +21,13 @@ stop:
 
 .PHONY: dang
 dang:
-	docker rmi $$(docker images -q -f dangling=true)
+	docker rmi $$(docker images -qf dangling=true)
+	docker volume rm $$(docker volume ls -qf dangling=true)
 
 .PHONY: remove
 remove:
 	docker rm $$(docker ps -a -q) -f
+
+.PHONY: volume
+volume:
+	docker volume rm  n8n-local_evolution_storage
