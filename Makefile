@@ -1,3 +1,6 @@
+.PHONY: update
+update: stop dang up
+
 .PHONY: up
 up:
 	docker compose up -d --remove-orphans
