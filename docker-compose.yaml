@@ -5,6 +5,8 @@ volumes:
   evolution_storage:
   waha_sessions_storage:
   waha_media_storage:
+  waha_files_storage:
+  waha_logs_storage:
   tailscale_config_storage:
   tailscale_data_storage:
 #  ollama_data:
@@ -105,6 +107,15 @@ services:
     container_name: waha
     hostname: waha
     restart: unless-stopped
+    # Add "dns" if you have a problem with resolving "web.whatsapp.com"
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '10'       
     ports:
       - 3000:3000
     env_file:
@@ -112,6 +123,8 @@ services:
     volumes:
       - waha_sessions_storage:/app/.sessions
       - waha_media_storage:/app/.media
+      - waha_files_storage:/app/files
+      - waha_logs_storage:/app/logs
     networks:
       - cavelab_network
 
