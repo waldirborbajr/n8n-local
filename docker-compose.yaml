@@ -5,6 +5,8 @@ volumes:
   evolution_storage:
   waha_sessions_storage:
   waha_media_storage:
+  waha_files_storage:
+  waha_logs_storage:
   tailscale_config_storage:
   tailscale_data_storage:
 #  ollama_data:
@@ -104,6 +106,8 @@ services:
     volumes:
       - waha_sessions_storage:/app/.sessions
       - waha_media_storage:/app/.media
+      - waha_files_storage:/app/files
+      - waha_logs_storage:/app/logs
     networks:
       - cavelab_network
 
