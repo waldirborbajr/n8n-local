@@ -9,6 +9,7 @@ volumes:
   waha_logs_storage:
   tailscale_config_storage:
   tailscale_data_storage:
+  redis_data_storage:
 #  ollama_data:
 
 networks:
@@ -25,6 +26,13 @@ services:
       - "5678:5678"
     env_file:
       - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pgvector:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     volumes:
       - n8n_storage:/home/node/.n8n
     networks:
@@ -43,6 +51,11 @@ services:
       "-c", "effective_cache_size=1GB",
       "-c", "work_mem=4MB"
     ]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-n8n}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 5432
     env_file:
@@ -64,6 +77,11 @@ services:
       "-c", "effective_cache_size=1GB",
       "-c", "work_mem=4MB"
     ]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-n8n}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 5432
     env_file:
@@ -149,12 +167,13 @@ services:
       - n8n:5678 # Aponta para o serviço n8n na porta 5678
 
   redis:
-    image: redis:alpine3.22
+    image: redis:7-alpine # alpine3.22
     container_name: redis
     hostname: redis
     restart: always
-    command: >
-      redis-server --port 6397 --appendonly yes
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data_storage:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
