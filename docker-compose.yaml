@@ -15,7 +15,7 @@ networks:
 
 services:
   n8n:
-    image: n8nio/n8n:1.107.3
+    image: n8nio/n8n:1.108.1
     container_name: n8n
     hostname: n8n
     restart: unless-stopped
@@ -33,6 +33,14 @@ services:
     container_name: pgvector
     hostname: pgvector
     restart: unless-stopped
+    command: [
+      "postgres",
+      "-c", "max_connections=200",
+      "-c", "listen_addresses=*",
+      "-c", "shared_buffers=256MB",
+      "-c", "effective_cache_size=1GB",
+      "-c", "work_mem=4MB"
+    ]
     ports:
       - 5432
     env_file:
@@ -130,21 +138,23 @@ services:
     container_name: redis
     hostname: redis
     restart: always
+    command: >
+      redis-server --port 6397 --appendonly yes
     ports:
       - 6380:6379
     networks:
       - cavelab_network
 
-#  adminer:
-#    image: adminer
-#    container_name: adminer
-#    restart: unless-stopped
-#    ports:
-#      - "8081:8080"
-#    depends_on:
-#      - postgres
-#    networks:
-#      - cavelab_network
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+    networks:
+      - cavelab_network
 
 #  ollama:
 #    image: ollama/ollama:latest
