@@ -115,11 +115,13 @@ services:
       driver: 'json-file'
       options:
         max-size: '100m'
-        max-file: '10'       
+        max-file: '10'
     ports:
       - 3000:3000
     env_file:
       - .env
+    depends_on:
+      - redis
     volumes:
       - waha_sessions_storage:/app/.sessions
       - waha_media_storage:/app/.media
@@ -153,6 +155,11 @@ services:
     restart: always
     command: >
       redis-server --port 6397 --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - 6380:6379
     networks:
