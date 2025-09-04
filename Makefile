@@ -45,7 +45,7 @@ down: ## Stop and remove all services
 	@echo "${GREEN}Services stopped and removed!${NC}"
 
 .PHONY: stop
-stop: ## Stop all services and remove containers
+stop: dang ## Stop all services and remove containers
 	@echo "${BLUE}Stopping services...${NC}"
 	@$(COMPOSE) stop
 	@echo "${BLUE}Removing containers...${NC}"
@@ -55,18 +55,9 @@ stop: ## Stop all services and remove containers
 .PHONY: dang
 dang: ## Remove dangling images and volumes
 	@echo "${BLUE}Cleaning up dangling images and volumes...${NC}"
-	@if [ -n "$$(docker images -qf dangling=true)" ]; then \
-		docker rmi $$(docker images -qf dangling=true); \
-		echo "${GREEN}Dangling images removed!${NC}"; \
-	else \
-		echo "${GREEN}No dangling images found!${NC}"; \
-	fi
-	@if [ -n "$$(docker volume ls -qf dangling=true)" ]; then \
-		docker volume rm $$(docker volume ls -qf dangling=true); \
-		echo "${GREEN}Dangling volumes removed!${NC}"; \
-	else \
-		echo "${GREEN}No dangling volumes found!${NC}"; \
-	fi
+	docker image prune -a -f;\
+	docker volume prune -f;\
+	echo "${GREEN}Dangling images removed!${NC}"; \
 
 .PHONY: remove
 remove: ## Remove all containers
