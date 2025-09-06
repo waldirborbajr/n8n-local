@@ -152,8 +152,6 @@ services:
       WAHA_DASHBOARD_ENABLED: true
       WAHA_DASHBOARD_USERNAME: admin
       WAHA_DASHBOARD_PASSWORD: admin
-    depends_on:
-      - redis
     volumes:
       - waha_sessions_storage:/app/.sessions
       - waha_media_storage:/app/.media
